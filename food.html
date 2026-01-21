@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Selection</title>
+    <link rel="stylesheet" href="css/food.css" />
+  </head>
+  <body>
+    <div id="foodquestion">
+      <b>What food would you like to eat? :p (select min 2) </b>
+    </div>
+
+    <form id="foodForm">
+      <div class="food-selection">
+        <div class="food-item">
+          <img src="food/burgers.jpeg" alt="Burgers & Special" />
+          <label>
+            <input type="checkbox" name="food" value="Burgers & fries" />
+            burgers and fried chicken
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/self.jpg" alt="maikhud" />
+          <label>
+            <input type="checkbox" name="food" value="Ankit Tiwari" /> Ankit Tiwari
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/koreanfood.jpeg" alt="koreanfood" />
+          <label>
+            <input type="checkbox" name="food" value="Korean food" /> Korean food
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/pasta.jpeg" alt="pasta" />
+          <label>
+            <input type="checkbox" name="food" value="Pasta" /> Pasta
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/pizza.jpeg" alt="pizza" />
+          <label>
+            <input type="checkbox" name="food" value="Pizza" /> Pizza
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/salad.jpeg" alt="streetfood" />
+          <label>
+            <input type="checkbox" name="food" value="Street Food" /> Street Food khayenge (gareebi on top)
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/steak.jpeg" alt="steak" />
+          <label>
+            <input type="checkbox" name="food" value="Ramen/Chowmein" /> Chowmein/Ramen
+          </label>
+        </div>
+        <div class="food-item">
+          <img src="food/sushi.jpeg" alt="sushi" />
+          <label>
+            <input type="checkbox" name="food" value="Sushi" /> Sushi
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="button">
+        Continue karoooo ( Clickme!!!)...
+      </button>
+    </form>
+
+    <script>
+      document.getElementById("foodForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission (page reload)
+
+        const selectedFoods = document.querySelectorAll('input[name="food"]:checked');
+        
+        if (selectedFoods.length !== 2) {
+          return; // If the user hasn't selected exactly 2 options, don't submit.
+        }
+
+        // Prepare the form data
+        const formData = new FormData();
+        selectedFoods.forEach(function (food) {
+          formData.append("food", food.value);
+        });
+
+        // Send data to Formspree using fetch (AJAX)
+        fetch("https://formspree.io/f/xjkggwkp", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Redirect to dessert.html after successful submission
+          window.location.href = "dessert.html";
+        })
+        .catch(error => {
+          // Handle error (if any)
+          console.error("Error:", error);
+        });
+      });
+    </script>
+  </body>
+</html>

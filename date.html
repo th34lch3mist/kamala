@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date</title>
+    <link rel="stylesheet" href="css/date.css" />
+  </head>
+  <body>
+    <h2 title="choose a date">When can i take you out for a date?👉🏼👈🏼( Bagalkot ya BLR idc!! you name it hehe).</h2>
+    <form class="form-group" id="dateForm" action="https://formspree.io/f/xjkggwkp" method="POST">
+      <label>Which day: (select a date cutie.. )</label>
+      <div>
+        <input type="date" id="selectedDate" name="date" required />
+        <button class="button" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+
+    <script>
+      document.getElementById("dateForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission from reloading the page
+        
+        const selectedDate = document.getElementById("selectedDate").value;
+        
+        if (selectedDate) {
+          // Add the selected date to the form data
+          const formData = new FormData(event.target);
+          formData.append('date', selectedDate); // Append the date to the form data
+
+          // Now, submit the form data to Formspree
+          fetch(event.target.action, {
+            method: event.target.method,
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Form submitted successfully:', data);
+            window.location.href = "food.html"; // Redirect to food.html after form submission
+          })
+          .catch(error => {
+            console.error('Error submitting form:', error);
+          });
+        } else {
+          alert("Please select a date!");
+        }
+      });
+    </script>
+  </body>
+</html>

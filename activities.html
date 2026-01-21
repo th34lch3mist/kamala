@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Activities</title>
+    <link rel="stylesheet" href="css/activities.css" />
+  </head>
+  <body>
+    <div id="activityquestion"><b>What are we doing after?( in blr if possible, or bagalkot ka we'll decide baad me)</b></div>
+    <form id="activitiesForm">
+      <div class="activities-selection">
+        <div class="activity-item">
+          <img src="activities/movie.jpeg" alt="movie" />
+          <label>
+            <input type="checkbox" name="activities" value="movie" />
+            Movie
+          </label>
+        </div>
+        <div class="activity-item">
+          <img src="activities/museum.jpeg" alt="museum" />
+          <label>
+            <input type="checkbox" name="activities" value="museum" />
+            Museum
+          </label>
+        </div>
+        <div class="activity-item">
+          <img src="activities/garden.jpeg" alt="garden" />
+          <label>
+            <input type="checkbox" name="activities" value="garden" />
+            Garden
+          </label>
+        </div>
+        <div class="activity-item">
+          <img src="activities/mall.jpeg" alt="mall" />
+          <label>
+            <input type="checkbox" name="activities" value="mall" />
+            Mall
+          </label>
+        </div>
+        <div class="activity-item">
+          <img src="activities/thrifting.jpeg" alt="thrifting" />
+          <label>
+            <input type="checkbox" name="activities" value="thrifting" />
+            Thrifting
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="button">
+        Last page ...
+      </button>
+    </form>
+
+    <script>
+      document.getElementById("activitiesForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission (page reload)
+
+        const selectedActivities = document.querySelectorAll('input[name="activities"]:checked');
+        
+        if (selectedActivities.length === 0) {
+          return; // If no activities are selected, don't submit.
+        }
+
+        // Prepare the form data
+        const formData = new FormData();
+        selectedActivities.forEach(function (activity) {
+          formData.append("activities", activity.value);
+        });
+
+        // Send data to Formspree using fetch (AJAX)
+        fetch("https://formspree.io/f/xjkggwkp", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Redirect to lastpage.html after successful submission
+          window.location.href = "lastpage.html";
+        })
+        .catch(error => {
+          // Handle error (if any)
+          console.error("Error:", error);
+        });
+      });
+    </script>
+  

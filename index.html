@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be My Valentine</title>
+    <link rel="stylesheet" href="css/valentine.css" />
+  </head>
+
+  <body>
+    <div id="valentineQuestion">
+      <b>Will you be my valentine 🥺🥺🥺🥺🥺 ?</b>
+    </div>
+
+    <button class="answerButton" onclick="location.href='thankyou.html'" id="yesButton">
+      Yes
+    </button>
+
+    <button class="answerButton" id="noButton">
+      Nai Jana ( tum ghatiya aadmi ho )
+    </button>
+
+    <br />
+
+    <img
+      src="please.png"
+      height="498px"
+      width="150px"
+      alt="cat asking question"
+      class="responsive"
+    />
+
+    <script>
+      let noClickCount = 0;
+
+      const noMessages = [
+        "Pakka? 🥹",
+        "Shayad Galti se daba diya hoga 😌",
+        "Wow?!! But I made this just for you!🥺🥺",
+        "You are mean, but baby please reconsider😔💔",
+        "pretty pls???…😭😭! 💌",
+        "Andhi ho kya bhai? sahi button click karo!"
+      ];
+
+      const yesButton = document.getElementById("yesButton");
+      const noButton = document.getElementById("noButton");
+
+      noButton.addEventListener("click", function () {
+        const currentFontSize = parseInt(window.getComputedStyle(yesButton).fontSize);
+        yesButton.style.fontSize = currentFontSize + 10 + "px";
+
+        if (noClickCount < noMessages.length) {
+          noButton.textContent = noMessages[noClickCount];
+          noClickCount++;
+          return;
+        }
+
+        noButton.textContent = "Yes 😭";
+        noButton.onclick = () => (location.href = "thankyou.html");
+      });
+    </script>
+  </body>
+</html>

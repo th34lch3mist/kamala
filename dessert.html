@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dessert</title>
+    <link rel="stylesheet" href="css/dessert.css" />
+  </head>
+  <body>
+    <div id="dessertquestion">Choose your dessert bbgggg :p </div>
+
+    <form id="dessertForm">
+      <div class="dessert-selection">
+        <div class="dessert-item">
+          <img src="food/cheesecake.jpeg" alt="cheesecake" />
+          <label>
+            <input type="checkbox" name="dessert" value="cheesecake" />
+            Cheese Cake
+          </label>
+        </div>
+        <div class="dessert-item">
+          <img src="food/tiramisu.jpeg" alt="tiramisu" />
+          <label>
+            <input type="checkbox" name="dessert" value="tiramisu" />
+            Tiramisu
+          </label>
+        </div>
+        <div class="dessert-item">
+          <img src="food/chocolavacake.jpeg" alt="chocolava cake" />
+          <label>
+            <input type="checkbox" name="dessert" value="chocolavacake" />
+            Chocolava Cake
+          </label>
+        </div>
+		  <div class="dessert-item">
+          <img src="food/me.jpeg" alt="me" />
+          <label>
+            <input type="checkbox" name="dessert" value="me" />
+            Ankit Tiwari ( oiled up )
+          </label>
+        </div>
+        <div class="dessert-item">
+          <img src="food/icecream.jpeg" alt="ice cream" />
+          <label>
+            <input type="checkbox" name="dessert" value="icecream" />
+            Ice Cream
+          </label>
+        </div>
+        <div class="dessert-item">
+          <img src="food/donuts.jpeg" alt="donuts" />
+          <label>
+            <input type="checkbox" name="dessert" value="donuts" />
+            Donuts
+          </label>
+        </div>
+      
+      </div>
+
+      <button type="submit" class="button">
+        Continue 🥰🔪
+      </button>
+    </form>
+
+    <script>
+      document.getElementById("dessertForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission (page reload)
+
+        const selectedDesserts = document.querySelectorAll('input[name="dessert"]:checked');
+        
+        if (selectedDesserts.length === 0) {
+          return; // If no dessert is selected, don't submit.
+        }
+
+        // Prepare the form data
+        const formData = new FormData();
+        selectedDesserts.forEach(function (dessert) {
+          formData.append("dessert", dessert.value);
+        });
+
+        // Send data to Formspree using fetch (AJAX)
+        fetch("https://formspree.io/f/xjkggwkp", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Redirect to activities.html after successful submission
+          window.location.href = "activities.html";
+        })
+        .catch(error => {
+          // Handle error (if any)
+          console.error("Error:", error);
+        });
+      });
+    </script>
+  </body>
+</html>
